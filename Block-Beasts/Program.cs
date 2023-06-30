@@ -10,9 +10,10 @@ namespace Block_Beasts
     {
         static void Main(string[] args)
         //TODO create a random roll system to give the player their starting Beasts.
-        //TODO make the player randomly go up against 3 random trainers, and then the Blocker Boss. 
+        //TODO make the player randomly go up against 3 random trainers, and then the Blocker Boss.
+        //TODO make BlockBOX look more appealing 
         {
-            /*TODO UNCOMMENT THIS WHEN READY, INTRO! */
+            
             Console.WriteLine("Hey...");
             Thread.Sleep(500);
             Console.WriteLine("\nHey Wake Up!");

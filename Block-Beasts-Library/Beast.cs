@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Block_Beasts_Library
 {
-    internal class Character // This is my base class for every class / I won't have a monster/weapon class because the characters are the weapons/monsters
+    internal class Beast // This is my base class for every class / I won't have a monster/weapon class because the characters are the weapons/monsters
     {
         // FIELDS - Funny
         // I have no business rules 
@@ -18,11 +18,14 @@ namespace Block_Beasts_Library
         public string Type { get; set; }
         public int CriticalHitChance { get; set; }
         public string HiddenTalent { get; set; }
+        public decimal Damage { get; set; }
+        public int Dodge { get; set; }
+        public int Miss { get; set; }
 
 
 
         // CTOR - Collect
-        public Character (string name, int health, int maxHealth, string type, int criticalHitChance, string hiddenTalent)
+        public Beast (string name, int health, int maxHealth, string type, int criticalHitChance, string hiddenTalent, decimal damage, int dodge, int miss)
         {
             Name = name;
             Health = health;
@@ -30,7 +33,9 @@ namespace Block_Beasts_Library
             Type = type;
             CriticalHitChance = criticalHitChance;
             HiddenTalent = hiddenTalent;
-
+            Damage = damage;
+            Dodge = dodge;
+            Miss = miss;
         }
 
         // METHODS - Monkeys
