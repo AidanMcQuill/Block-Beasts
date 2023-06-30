@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Block_Beasts_Library
 {
     // This class is for the player. The character parent class will be for the Beasts (weapons). This class is strictly just for the storyline of my app.
+    // Incase I wanna expand on this idea I won't use write lines for opposing trainer names but instead the "trainer" class 
     public class Trainer
     {
 
