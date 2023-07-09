@@ -6,6 +6,7 @@
     <RootNamespace>Block_Beasts</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>Block_Beasts.TestHarness</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
