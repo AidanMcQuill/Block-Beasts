@@ -35,7 +35,7 @@ namespace Block_Beasts_Library
             strong = 1, // extra attack power (12.5% to roll) Damage range increases to 5-7
             boring = 2, // No buff/Nerf applied to mon (50% to roll) 
             Clumsy = 3, // A more likely chance to miss your attacks (12.5% to roll) Miss chances increase to 35%
-            Weak = 4, // less attack power (12.5% to roll) Damage range decrease to 35% 
+            Weak = 4, // less attack power (12.5% to roll) Damage range decrease to 3-4
             */
 
             // Listing the attributes for each parameter 
