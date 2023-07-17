@@ -16,28 +16,36 @@ namespace Block_Beasts_Library
 
         // PROPS - People
         public string Name { get; set; }
-        
-        public int Age { get; set; }
 
-        public string Gender { get; set; }
+        public int Score { get; set; }
+        
+     
+
+         
+
+        
 
 
         // CTOR - Collect
-        public Trainer (string name, int age, string gender) // Params must be closer case so we can assign the props to the params
+        public Trainer (string name, int score) // Params must be closer case so we can assign the props to the params
         {
            
             Name = name;
-            Age = age;
-            Gender = gender; 
+            
+            Score = score;
         }
 
         // METHODS - Monkeys
 
         public override string ToString()
         {
-            return string.Format($"Name: {Name}\nAge: {Age}\nGender: {Gender}");
+            return string.Format($"Name: {Name}\n");
         }
 
+        public void AddPoint()
+        {
+            Score += 1;
+        }
 
     }
 }      

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,10 +12,11 @@ namespace Block_Beasts_Library
 {
     public class Battle
     {
+
         public static void BattleAction(Beast TrainerBeast, Beast EnemyBeast)
         {
             // Registering if the hit lands  
-            int chance = TrainerBeast.CalcHit() - EnemyBeast.CalcDodge();
+            int chance = TrainerBeast.Miss - EnemyBeast.Dodge;
             int roll = new Random().Next(1, 101);
             bool hit = roll <= chance;
 
@@ -24,10 +26,10 @@ namespace Block_Beasts_Library
 
             if (hit) // we rolled above the miss chance
             {
-                //calculate the damage
-                int damage = TrainerBeast.CalcDamage();
+                //calculating damage
+                int damage = TrainerBeast.Damage;
 
-                //subtract and assign it to the defender's life
+
                 EnemyBeast.Health -= damage;
 
                 //output the result
@@ -42,9 +44,10 @@ namespace Block_Beasts_Library
                 Console.Write($"{TrainerBeast.Name} ");
                 Console.ResetColor();
                 Console.WriteLine("missed!");
+                
             }
 
-
+            
 
         }//end of main battle mechanic()
 
@@ -59,21 +62,74 @@ namespace Block_Beasts_Library
             else
             {
 
+                //TODO add a score tab 
 
-                TrainerBeast.score++;
-
-                Console.WriteLine("\nYou shake hands with the opposing trainer and move on\n");
-                Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("Your beast has been restored to full health\n");
-                //TODO fix the health restore so it doesn't go over the max 
-                Console.ResetColor();
                 Console.WriteLine($"\nYou won the battle against {EnemyBeast.Name}!\n");
+                Console.WriteLine("\nYou shake hands with the opposing trainer and move on\n");
+                Console.WriteLine("\n====================================================================================== \n");
+                Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("Your beast has been restored to full health\n");
+
+                //TODO-ISH fix the health restore so it doesn't go over the max 
+                // ^ This was so simple, I didn't get the loop but I did it for the loop. I spent 3 hours on this. Relief Relief Relief.
+
+                TrainerBeast.MaxHealth += 0;
+                TrainerBeast.Health = TrainerBeast.MaxHealth;
+                 Console.WriteLine($"\nLife: " + TrainerBeast.Health + "/" + TrainerBeast.MaxHealth);
                 Console.ResetColor();
-                TrainerBeast._Health += 15;
-                // Prompt the trainer to roll a new Beast.
-                return true;
+
+
+                Console.WriteLine("\n====================================================================================== \n");
+
+
+                Console.WriteLine("Would you like to swap beasts? y / n ");
+                string playerChoice = Console.ReadLine();
+                if (playerChoice == "y")
+                {
+                    // Add new beast roll
+                    Console.Clear();
+                    Beast NewBeast = Beast.GetTrainerBeast();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    TrainerBeast = NewBeast;
+                    Console.WriteLine("=====  The new beast joining your side is: " + TrainerBeast.Name + ".  =====");
+                    Console.WriteLine(TrainerBeast.ToString());
+                    Console.ResetColor();
+                    
+                    return true;
+                }
+                else if (playerChoice == "n")
+                {
+
+                    Console.Clear();
+                    Console.WriteLine("Your beast acknowledges your loyalty!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("stats increased!");
+                    Console.ResetColor();
+                    Console.WriteLine("\n====================================================================================== \n");
+                    TrainerBeast.MaxHealth += 2;
+                    TrainerBeast.Health = TrainerBeast.MaxHealth;
+                    TrainerBeast.Damage += 1;
+                    TrainerBeast.Miss += 5;
+                    TrainerBeast.Dodge += 5;
+
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.WriteLine(TrainerBeast.ToString());
+                    TrainerBeast.Score += 1;
+                    Console.ResetColor();
+                    return true;
+
+                }
+                 
+                else { Console.WriteLine("Please type y or n"); }
+               return true;
+
+
+
             }
 
+
+
         }
+
     }
 }
 

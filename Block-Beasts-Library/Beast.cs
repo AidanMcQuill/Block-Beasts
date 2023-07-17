@@ -24,7 +24,7 @@ namespace Block_Beasts_Library
             set { _Health = value <= MaxHealth ? value : MaxHealth; }
         }
         public string Type { get; set; }
-        public int CriticalHitChance { get; set; }
+
         public Talent HiddenTalent { get; set; }
         public int Damage { get; set; }
         public int Dodge { get; set; }
@@ -32,7 +32,7 @@ namespace Block_Beasts_Library
 
         public string Description { get; set; }
 
-        public int score { get; set; }
+        public int Score { get; set; }
 
 
 
@@ -50,10 +50,10 @@ namespace Block_Beasts_Library
 
             // Listing the attributes for each parameter 
             Name = name;
-            MaxHealth = maxHealth; // out of 25
+            MaxHealth = this.GetHealth();
             Health = MaxHealth;
             //Type = type; // no context yet
-            CriticalHitChance = criticalHitChance; // 30% (fixed)
+             
             Damage = this.CalcDamage(); // Base damage 3-5
             Dodge = this.CalcDodge(); // 20% base stat (Unless talented)
             Miss = this.CalcHit(); // 20% base stat (Unless talented)
@@ -75,17 +75,28 @@ namespace Block_Beasts_Library
                 $"\nDescription: {Description}" +
                 //$"\nHidden Talent: {HiddenTalent} " +
                 $"{(this.HiddenTalent == Talent.Weak ? "\nYour beast is Weak!\nYour frail beast won't do as much damage to others." : "")}" +
-                $"{(this.HiddenTalent == Talent.strong ? "\n\"Your beast is Strong!\nIncreased damage buff, oh yeah! " : "")}" +
+                $"{(this.HiddenTalent == Talent.strong ? "\nYour beast is Strong!\nIncreased damage buff, oh yeah! " : "")}" +
                 $"{(this.HiddenTalent == Talent.boring ? "\nYour beast is Boring!\nYour beast has no change, boo hoo. " : "")}" +
                 $"{(this.HiddenTalent == Talent.Clumsy ? "\nYour beast is Clumsy!\nIncreased Miss chance when in combat :( " : "")}" +
                 $"{(this.HiddenTalent == Talent.Timid ? "\nYour beast is Timid!\nIt has a better chance at dodging. " : "")}" +
+                $"{(this.HiddenTalent == Talent.Scared ? "\nYour beast is Scared!\nIt will dodge more likely but it's also more likely to miss. " : "")}" +
+                $"{(this.HiddenTalent == Talent.Loyal ? "\nYour beast is Loyal!\nDue to the loyalty of your beast it has increased health!" : "")}" +
+                $"{(this.HiddenTalent == Talent.PATHETIC ? "\nYour beast is pathetic!\nThis Beast has no battle spirit, major decrease to stats" : "")}" +
+                $"{(this.HiddenTalent == Talent.GODLY ? "\nYour beast is Godly!\nThis is the dream beast, Major increase to stats!" : "")}" +
+                $"{(this.HiddenTalent == Talent.Enraged ? "\nYour beast is Enraged!\nYour beast is blinded with rage, more damage, but more likely to miss" : "")}" +
+
                 $"\nLife: {Health} / {MaxHealth}" +
                 $"\nDamage Output: {Damage}" +
-                $"\nCritical Hit Chance: {CriticalHitChance}%" +
                 $"\nDodge Chance: {Dodge}%" +
                 $"\nHit Chance: {Miss}%";
         }
 
+        public int GetHealth()
+        {
+            Random MaxHealth = new Random();
+            int healthAmount = MaxHealth.Next(18, 22);
+            return healthAmount;
+        }
         public int CalcDamage()
         {
 
@@ -111,7 +122,7 @@ namespace Block_Beasts_Library
 
             return HitChance;
         }
-        public Talent RandomTalent()  
+        public Talent RandomTalent()
         {
 
 
@@ -128,30 +139,76 @@ namespace Block_Beasts_Library
             Random WeighedTalent = new Random();
             int TalentPercent = WeighedTalent.Next(1, 101);
 
-            if (TalentPercent < 21) // Numbers 1..10 ( A -> 15% )
+            if (TalentPercent < 11)
             {
                 selectedTalent = Talent.Timid;
                 this.Dodge += 10;
             }
-            else if (TalentPercent < 41) // Numbers 11..40 ( B -> 15 % )
+            else if (TalentPercent < 21)
             {
                 selectedTalent = Talent.strong;
                 this.Damage += 1;
             }
-            else if (TalentPercent < 61) // Numbers 41..100 ( C -> 15 % ) 
+            else if (TalentPercent < 31)
             {
                 selectedTalent = Talent.Clumsy;
                 this.Miss -= 10;
             }
-            else if (TalentPercent < 81) // Numbers 41..100 ( C -> 15 % ) 
+            else if (TalentPercent < 41)
             {
                 selectedTalent = Talent.Weak;
 
                 this.Damage -= 1;
             }
-            else if (TalentPercent < 101) // Numbers 41..100 ( C -> 40 % ) 
+            else if (TalentPercent < 61)
             {
                 selectedTalent = Talent.boring;
+
+            }
+            else if (TalentPercent < 71)
+            {
+                selectedTalent = Talent.Scared;
+                this.Miss -= 10;
+                this.Dodge += 10;
+
+            }
+            else if (TalentPercent < 81)
+            {
+                selectedTalent = Talent.Loyal;
+                this.MaxHealth += 7;
+                Health = MaxHealth;
+
+
+            }
+            else if (TalentPercent < 86)
+            {
+                selectedTalent = Talent.PATHETIC;
+                this.Dodge -= 15;
+                this.Miss -= 15;
+                this.Damage -= 2;
+                this.MaxHealth -= 5;
+                Health = MaxHealth;
+
+
+            }
+            else if (TalentPercent < 91)
+            {
+                selectedTalent = Talent.GODLY;
+                this.Dodge += 15;
+                this.Miss -= 15;
+                this.Damage += 3;
+                this.MaxHealth += 8;
+                Health = MaxHealth;
+
+
+            }
+            else if (TalentPercent < 101) // Numbers 41..100 ( C -> 40 % )
+            {
+                selectedTalent = Talent.Enraged;
+                this.Miss -= 20;
+                this.Damage += 4;
+
+
 
             }
 
@@ -165,7 +222,7 @@ namespace Block_Beasts_Library
 
 
         }// Talent
-        //TODO make some talents "rare" to prompt the user to keep rolling for more monsters.
+
 
         //TODO use verbatims strings with art for the beasts 
         public static Beast GetEnemyBeast()
@@ -174,14 +231,15 @@ namespace Block_Beasts_Library
             Beast Csharpo = new Beast( // Most numbers are placeholders numbers that will be overwritten
                 "Csharpo", //Name 
                 1, // Health 
-                15, // Max Health
+                1, // Max Health
                 30, // crit hit chance
                     //Talent 
                 1,// damage 
                 20, // dodge
                 1, // miss 
                 "It's a purple colored dragon that's very angry!", // description 
-                false // Random Talent
+                false
+                // Random Talent
                 );
 
             Beast SQLizard = new Beast( // Most numbers are placeholders numbers that will be overwritten
@@ -194,7 +252,8 @@ namespace Block_Beasts_Library
                 20, // dodge
                 1, // miss 
                 "It's a large reptile with many eggs like a database", // description 
-                false // Random Talent
+                false
+                // Random Talent
                 );
 
             Beast DeBugRio = new Beast( // Most numbers are placeholders numbers that will be overwritten
@@ -207,7 +266,8 @@ namespace Block_Beasts_Library
                 20, // dodge
                 1, // miss 
                 "It's a fiery red dragonfly that is very annoying to the user", // description 
-                false // Random Talent
+                false
+                // Random Talent
                 );
             #endregion
             List<Beast> Beasts = new()
@@ -235,7 +295,8 @@ namespace Block_Beasts_Library
                20, // dodge
                1, // miss 
                "It's eyebrows look like red error lines!", // description 
-               false // Random Talent
+               false
+               // Random Talent
                );
 
 
@@ -256,7 +317,8 @@ namespace Block_Beasts_Library
                 20, // dodge
                 1, // miss 
                 "It's cat-like, And it keeps talking about a repository?", // description 
-                false // Random Talent
+                false
+                // Random Talent
                 );
 
             //Console.WriteLine(Auqagit.ToString());
@@ -274,7 +336,36 @@ namespace Block_Beasts_Library
                 20, // dodge
                 1, // miss 
                 "It's a has a black scaley body with little white spots that almost look like terminal text!", // description 
-                false // Random Talent
+                false
+                // Random Talent
+                );
+
+            Beast BuildBoo = new Beast( // Most numbers are placeholders numbers that will be overwritten
+                "BuildBoo", //Name 
+                1, // Health 
+                20, // Max Health
+                30, // crit hit chance
+                    //Talent 
+                1,// damage 
+                20, // dodge
+                1, // miss 
+                "It looks like an adorable teddy bear!, but it has so many build errors", // description 
+                false
+                // Random Talent
+                );
+
+            Beast Dynamico = new Beast( // Most numbers are placeholders numbers that will be overwritten
+                "BuildBoo", //Name 
+                1, // Health 
+                20, // Max Health
+                30, // crit hit chance
+                    //Talent 
+                1,// damage 
+                20, // dodge
+                1, // miss 
+                "All it's moves link together in a library!", // description 
+                false
+                // Random Talent
                 );
 
 
@@ -284,7 +375,9 @@ namespace Block_Beasts_Library
             {
                  Flambug,
                 Auqagit,
-                TermaSnake
+                TermaSnake,
+                BuildBoo,
+                Dynamico,
             };
 
             Random rand = new Random();
@@ -294,7 +387,7 @@ namespace Block_Beasts_Library
 
         }
 
-
+        
 
 
 
