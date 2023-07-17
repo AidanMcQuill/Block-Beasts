@@ -289,8 +289,42 @@ ______ _            _     ______                _
                     }//end switch
 
                     // Perma Text for menu 
-                    Console.WriteLine("\n" + TrainerBeast.Name + " VS " + EnemyBeast.Name + "\n");
+                    
 
+
+
+
+                    // WIN CONDITION
+
+                    if (Score >= 5)
+                    {
+                        Console.WriteLine("You Are The Champion " + TrainerName + " Congratulations!!! \n" + @"                    
+                    *****************
+               ******               ******
+           ****                           ****
+        ****                                 ***
+      ***                                       ***
+     **           ***               ***           **
+   **           *******           *******          ***
+  **            *******           *******            **
+ **             *******           *******             **
+ **               ***               ***               **
+**                                                     **
+**       *                                     *       **
+**      **                                     **      **
+ **   ****                                     ****   **
+ **      **                                   **      **
+  **       ***                             ***       **
+   ***       ****                       ****       ***
+     **         ******             ******         **
+      ***            ***************            ***
+        ****                                 ****
+           ****                           ****
+               ******               ******
+                    ***************** 
+");
+                        Quit = true;
+                    }
 
                     //HEALTH CHECK
 
