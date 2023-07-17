@@ -44,10 +44,10 @@ namespace Block_Beasts_Library
                 Console.Write($"{TrainerBeast.Name} ");
                 Console.ResetColor();
                 Console.WriteLine("missed!");
-                
+
             }
 
-            
+
 
         }//end of main battle mechanic()
 
@@ -62,7 +62,6 @@ namespace Block_Beasts_Library
             else
             {
 
-                //TODO add a score tab 
 
                 Console.WriteLine($"\nYou won the battle against {EnemyBeast.Name}!\n");
                 Console.WriteLine("\nYou shake hands with the opposing trainer and move on\n");
@@ -74,64 +73,90 @@ namespace Block_Beasts_Library
 
                 TrainerBeast.MaxHealth += 0;
                 TrainerBeast.Health = TrainerBeast.MaxHealth;
-                 Console.WriteLine($"\nLife: " + TrainerBeast.Health + "/" + TrainerBeast.MaxHealth);
+                Console.WriteLine($"\nLife: " + TrainerBeast.Health + "/" + TrainerBeast.MaxHealth);
                 Console.ResetColor();
 
 
                 Console.WriteLine("\n====================================================================================== \n");
 
 
-                Console.WriteLine("Would you like to swap beasts? y / n ");
-                string playerChoice = Console.ReadLine();
-                if (playerChoice == "y")
+
+                //Switch statement
+
+
+                Console.WriteLine("Would you like to acquire a new beast?\n");
+                Console.WriteLine("1) YES | 2) NO\n");
+                char action = Console.ReadKey(true).KeyChar;
+                Console.Clear();
+                bool reload = false;
+
+
+
+
+                //TODO make the default case loop back so that the user doesn't miss the chance to make a proper choice. 
+                switch (action)
                 {
-                    // Add new beast roll
-                    Console.Clear();
-                    Beast NewBeast = Beast.GetTrainerBeast();
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    TrainerBeast = NewBeast;
-                    Console.WriteLine("=====  The new beast joining your side is: " + TrainerBeast.Name + ".  =====");
-                    Console.WriteLine(TrainerBeast.ToString());
-                    Console.ResetColor();
-                    
-                    return true;
+                    case '1':
+                        Console.Clear();
+                        Beast NewBeast = Beast.GetTrainerBeast();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        TrainerBeast = NewBeast;
+                        Console.WriteLine("Generating Beast: "); ShowSimplePercentage();
+                        Console.WriteLine("=====  The new beast joining your side is: " + TrainerBeast.Name + ".  =====");
+                        Console.WriteLine(TrainerBeast.ToString());
+                        Console.ResetColor();
+                        break;
+
+
+                    case '2':
+                        Console.Clear();
+                        Console.WriteLine("Your beast acknowledges your loyalty!");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("stats increased!");
+                        Console.ResetColor();
+                        Console.WriteLine("\n====================================================================================== \n");
+                        TrainerBeast.MaxHealth += 2;
+                        TrainerBeast.Health = TrainerBeast.MaxHealth;
+                        TrainerBeast.Damage += 1;
+                        TrainerBeast.Miss += 5;
+                        TrainerBeast.Dodge += 5;
+
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.WriteLine(TrainerBeast.ToString());
+                        TrainerBeast.Score += 1;
+                        Console.ResetColor();
+                        break;
+
+
+
+
                 }
-                else if (playerChoice == "n")
-                {
-
-                    Console.Clear();
-                    Console.WriteLine("Your beast acknowledges your loyalty!");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("stats increased!");
-                    Console.ResetColor();
-                    Console.WriteLine("\n====================================================================================== \n");
-                    TrainerBeast.MaxHealth += 2;
-                    TrainerBeast.Health = TrainerBeast.MaxHealth;
-                    TrainerBeast.Damage += 1;
-                    TrainerBeast.Miss += 5;
-                    TrainerBeast.Dodge += 5;
-
-                    Console.ForegroundColor = ConsoleColor.DarkBlue;
-                    Console.WriteLine(TrainerBeast.ToString());
-                    TrainerBeast.Score += 1;
-                    Console.ResetColor();
-                    return true;
-
-                }
-                 
-                else { Console.WriteLine("Please type y or n"); }
-               return true;
-
 
 
             }
+            return true;
 
+            static void ShowSimplePercentage()
+            {
+                for (int i = 0; i <= 100; i++)
+                {
+                    Console.Write($"\rProgress: {i}%   ");
+                    Thread.Sleep(25);
+                }
 
-
+                Console.Write("\rDone!          ");
+            }
         }
-
     }
+
 }
+
+
+
+
+
+
+
 
 
 

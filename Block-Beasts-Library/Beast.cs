@@ -224,7 +224,6 @@ namespace Block_Beasts_Library
         }// Talent
 
 
-        //TODO use verbatims strings with art for the beasts 
         public static Beast GetEnemyBeast()
         {
             #region EnemyBeasts
