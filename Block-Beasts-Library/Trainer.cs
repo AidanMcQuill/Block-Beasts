@@ -42,9 +42,11 @@ namespace Block_Beasts_Library
             return string.Format($"Name: {Name}\n");
         }
 
-        public void AddPoint()
+        public int AddPoint()
         {
             Score += 1;
+
+            return Score;
         }
 
     }
