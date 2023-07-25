@@ -57,7 +57,19 @@ namespace Block_Beasts_Library
             if (EnemyBeast.Health > 0)
             {
                 BattleAction(EnemyBeast, TrainerBeast);
+
+                Console.WriteLine("====================================================================================== \n");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(TrainerBeast.Name);
+                Console.ResetColor();
+                Console.Write(" HP: " + TrainerBeast.Health+"\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(EnemyBeast.Name);
+                Console.ResetColor();
+                Console.Write(" HP: " + EnemyBeast.Health + "\n");
+
                 return false;
+
             }
             else
             {
@@ -108,7 +120,7 @@ namespace Block_Beasts_Library
                         break;
 
 
-                    case '2':
+                    default:
                         Console.Clear();
                         Console.WriteLine("Your beast acknowledges your loyalty!");
                         Console.ForegroundColor = ConsoleColor.Green;
