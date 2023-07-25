@@ -1,7 +1,5 @@
 # Block-Beasts
 
-CHECK OUT RELEASES FOR DOWNLOADABLE EXE FILE!
-
 The game is designed for the user to win off pure luck, The gimmick is just seeing what the best "beast" you can generate is. RNG is the key to victory.
 You may struggle to win the first few battles but just keep restating until you start winning and you'll take off from there.
 
